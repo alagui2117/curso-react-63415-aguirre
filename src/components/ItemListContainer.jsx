@@ -1,5 +1,5 @@
 
-function ItemListContainer({ products }){
+function ItemListContainer({ greeting }){
     
     return(
         <>
