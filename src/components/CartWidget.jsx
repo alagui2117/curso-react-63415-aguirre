@@ -1,11 +1,12 @@
 import {FaShoppingCart} from 'react-icons/fa'
 
-function CartWidget(){
+function CartWidget({cartCount}){
+
     return (
         <>
         <button className='button flex-row has-background-text-85'>
             <FaShoppingCart className='title is-4' />
-            <span>2</span>
+            <span>{cartCount}</span>
         </button>
         
         </>
