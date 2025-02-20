@@ -1,14 +1,16 @@
 import Logo from '../assets/images/logo.jpeg'
 import CartWidget from './CartWidget'
+
 import {Link} from 'react-router-dom'
-function Navbar({ cartCount }) {
+
+function Navbar({ cartCount, cart }) {
     return(
     <>
         <nav className="navbar has-background-text-85" role="navigation" aria-label="main navigation">
             <div className="navbar-brand">
                 <Link to="/">
                     <figure className='image mt-6 is-128x128'>
-                        <img className='is-16by9' src={Logo} />
+                        <img className='is-16by9' src={Logo}  alt={"logo"}/>
                     </figure>    
                 </Link>
                 
@@ -32,7 +34,7 @@ function Navbar({ cartCount }) {
 
                 <div className='navbar-end mr-4'>
                     <div className='navbar-item'>
-                        <CartWidget cartCount={cartCount}></CartWidget>
+                        <CartWidget cartCount={cartCount} cart={cart}></CartWidget>
                     </div>  
                 </div>
             </div>

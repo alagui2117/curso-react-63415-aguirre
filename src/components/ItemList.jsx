@@ -29,7 +29,10 @@ const ItemList = ({ products, onAddToCart, onRemoveFromCart }) => {
                 </Link>
                 <button
                   className="button is-primary card-footer-item "
-                  onClick={() => onAddToCart(product)}
+                  onClick={() => {
+                    onAddToCart(product)
+                  }
+                      }
                 >
                   Agregar al carrito
                 </button>

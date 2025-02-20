@@ -1,3 +1,5 @@
+import configFirebase from "./firebase.jsx";
+import {getDatabase, ref, onValue, set, push} from "firebase/database"
 const products = [
     {
         id: '3',
@@ -55,25 +57,60 @@ const products = [
       },
 ];
 
-export const getProducts = () =>{
-    return new Promise((resolve) => {
-        setTimeout(()=> resolve(products), 3000)
+export const addProduct = () => {
+    const database = getDatabase(configFirebase)
+    const collectionRef = ref(database, "products")
+
+    products.forEach(item =>{
+        const newProduct = push(collectionRef)
+        set(newProduct, item)
+    })
+
+}
+export const getProducts = async () =>{
+
+    const database = getDatabase(configFirebase)
+    const collectionRef = ref(database, "products")
+    return new Promise((resolve, reject) => {
+        onValue(collectionRef, (snapshot) => {
+            const productsData = snapshot.val();
+            if (productsData){
+                resolve(Object.values(productsData))
+            }else
+                reject("No se encontraron productos")
+        })
     })
 }
 
+
 export const getProductsById = (productId) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(products.find((prod) => prod.id === productId));
-      }, 500);
-    });
+    const database = getDatabase(configFirebase)
+    const collectionRef = ref(database, "products")
+    return new Promise((resolve, reject) => {
+        onValue(collectionRef, (snapshot) => {
+            const productsData = snapshot.val();
+            if (productsData){
+                const productsArray = Object.values(productsData)
+                resolve(productsArray.find(prod => prod.id === productId));
+            }else
+                reject("No se encontraron productos")
+        })
+    })
   };
   
   export const getProductsByCategory = (categoryId) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(products.filter((prod) => prod.category === categoryId));
-      }, 500);
-    });
+
+      const database = getDatabase(configFirebase)
+      const collectionRef = ref(database, "products")
+      return new Promise((resolve, reject) => {
+          onValue(collectionRef, (snapshot) => {
+              const productsData = snapshot.val();
+              if (productsData){
+                  const productsArray = Object.values(productsData)
+                  resolve(productsArray.filter((prod) => prod.category === categoryId));
+              }else
+                  reject("No se encontraron productos")
+          })
+      })
   };
   

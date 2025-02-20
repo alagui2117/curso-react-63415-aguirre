@@ -22,7 +22,7 @@ const ItemDetailsContainer = () => {
           <img src={product.img} alt={product.name} />
         </div>
       ) : (
-        <p>Cargando producto...</p>
+        <p>Producto inexistente</p>
       )}
     </div>
   );
